@@ -55,4 +55,17 @@ def test_get_descendants():
     parent_node.add_child(child_node)
     child_node.add_child(grandchild_node)
     descendants = parent_node.get_descendants()
-    assert len(descendants) == 2
+    assert len(descendants) == 2 
+
+def test_multiple_branch_descendants():
+    parent_node = Node("Parent")
+    child_node = Node("Child")
+    child_node_2 = Node("Child2")
+    grandchild_node = Node("Grandchild")
+    grandchild_node_2 = Node("Grandchild2")
+    parent_node.add_child(child_node)
+    parent_node.add_child(child_node_2)
+    child_node.add_child(grandchild_node)
+    child_node_2.add_child(grandchild_node_2)
+    descendants = parent_node.get_descendants()
+    assert len(descendants) == 4
