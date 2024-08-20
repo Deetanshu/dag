@@ -69,3 +69,11 @@ def test_multiple_branch_descendants():
     child_node_2.add_child(grandchild_node_2)
     descendants = parent_node.get_descendants()
     assert len(descendants) == 4
+
+def test_acyclic_exception():
+    parent_node = Node("Parent")
+    child_node = Node("Child")
+    error = None
+    parent_node.add_child(child_node)
+    with pytest.raises(Exception, match = "Acyclic property has been violated") as exception:        
+        child_node.add_child(parent_node)
