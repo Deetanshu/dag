@@ -13,13 +13,21 @@ class Node():
         self.children = set()
 
     def add_child(self, node):
-        self.children.add(node) 
-    
+        if self.acyclic_test(node):
+            self.children.add(node)
+        else:
+            raise Exception("Acyclic property has been violated")
+
     def get_children(self):
         return self.children.copy()
-    
+
     def get_descendants(self):
-        descendants = list(self.children.copy())
+        descendants = set(self.children.copy())
         for child in self.children:
-            descendants.append(child.get_descendants())
+            descendants.update(child.get_descendants())
         return descendants
+
+    def acyclic_test(self, node):
+        if self in node.get_descendants():
+            return False
+        return True
